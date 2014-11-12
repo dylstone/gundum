@@ -1,0 +1,67 @@
+<%@ jet package="template.ebean" imports="java.util.List ebean.model.TableEntity ebean.model.ImportManager ebean.model.ColumnEntity" class="EntityTemplate"  %>
+<% TableEntity tableEntity = (TableEntity) argument; %>
+package models.entities;
+
+<% ImportManager importManager = tableEntity.getImportManager(); %>
+<% if(importManager.hasTimestamp) {%>
+import java.sql.Timestamp;
+<% }%>
+<% if(importManager.hasList) {%>
+import java.util.ArrayList;
+import java.util.List;
+<% }%>
+
+<% if(importManager.hasCascadeType) {%>
+import javax.persistence.CascadeType;
+<% }%>
+<% if(importManager.hasColumn) {%>
+import javax.persistence.Column;
+<% }%>
+<% if(importManager.hasEntity) {%>
+import javax.persistence.Entity;
+<% }%>
+<% if(importManager.hasId) {%>
+import javax.persistence.Id;
+<% }%>
+<% if(importManager.hasJoinColumn) {%>
+import javax.persistence.JoinColumn;
+<% }%>
+<% if(importManager.hasOneToMany) {%>
+import javax.persistence.OneToMany;
+<% }%>
+<% if(importManager.hasOneToOne) {%>
+import javax.persistence.OneToOne;
+<% }%>
+<% if(importManager.hasVersion) {%>
+import javax.persistence.Version;
+<% }%>
+
+<% if(importManager.hasCreatedTimestamp) {%>
+import com.avaje.ebean.annotation.CreatedTimestamp;
+<% }%>
+<% if(importManager.hasUpdatedTimestamp) {%>
+import com.avaje.ebean.annotation.UpdatedTimestamp;
+<% }%>
+/**
+ * <%=tableEntity.tableLogicName %>
+ * <p>
+ * <%=tableEntity.usage %>
+ * </p>
+ * @author <%=tableEntity.writer %>
+ * @version <%=tableEntity.version %>
+ */
+@Entity
+public class <%=tableEntity.tableName%> extends BaseEntity {
+
+<% List<ColumnEntity> columnEntityList = tableEntity.getColumnEntityList(); %>
+<% for(ColumnEntity columnEntity: columnEntityList){ %>
+	/** <%=columnEntity.columnLogicName %> */
+	<% if(columnEntity.isPrimaryKey){%>@Id<%}%>
+	@Column(nullable = <%=columnEntity.nullable%>, columnDefinition ="<%=columnEntity.type %>(<%=columnEntity.length %>)<% if(columnEntity.initValue!=null&&!columnEntity.initValue.equals("")){%> default columnEntity.initValue<%}%>"<% if(columnEntity.updatable){%>, updatable=true<%}%>)
+	public String <%=columnEntity.columnName %>;<% }%>
+	
+	/** <%=tableEntity.tableLogicName %>のFinderクラス */
+	public static Finder<String, <%=tableEntity.tableName %>> find = 
+    		BaseEntity.getFinder(String.class, <%=tableEntity.tableName %>.class);
+
+}

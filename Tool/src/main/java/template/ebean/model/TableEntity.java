@@ -1,4 +1,4 @@
-package ebean.model;
+package template.ebean.model;
 
 import java.util.List;
 
@@ -15,6 +15,8 @@ public class TableEntity {
 	public String tableLogicName;
 	/** 物理名 */
 	public String tableName;
+	
+	public String entityName;
 	/** 用途 */
 	public String usage;
 	/** 作成日 */
@@ -46,4 +48,13 @@ public class TableEntity {
 		this.columnEntityList = columnEntityList;
 	}
 
+	@Override
+	public String toString() {
+		return "TableEntity [subSystemName=" + subSystemName
+				+ ", tableLogicName=" + tableLogicName + ", tableName="
+				+ tableName + ", usage=" + usage + ", createdDate="
+				+ createdDate + ", updatedDate=" + updatedDate + ", writer="
+				+ writer + ", version=" + version + ", columnEntityList="
+				+ columnEntityList + ", importManager=" + importManager + "]";
+	}
 }

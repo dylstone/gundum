@@ -1,4 +1,4 @@
-<%@ jet package="template.ebean" imports="java.util.List ebean.model.TableEntity ebean.model.ImportManager ebean.model.ColumnEntity" class="EntityTemplate"  %>
+<%@ jet package="template.ebean.action" imports="java.util.List template.ebean.model.TableEntity template.ebean.model.ImportManager template.ebean.model.ColumnEntity" class="EntityTemplate"  %>
 <% TableEntity tableEntity = (TableEntity) argument; %>
 package models.entities;
 
@@ -47,21 +47,29 @@ import com.avaje.ebean.annotation.UpdatedTimestamp;
  * <p>
  * <%=tableEntity.usage %>
  * </p>
+ *
  * @author <%=tableEntity.writer %>
  * @version <%=tableEntity.version %>
  */
 @Entity
-public class <%=tableEntity.tableName%> extends BaseEntity {
-
+public class <%=tableEntity.entityName%> extends BaseEntity {
 <% List<ColumnEntity> columnEntityList = tableEntity.getColumnEntityList(); %>
 <% for(ColumnEntity columnEntity: columnEntityList){ %>
-	/** <%=columnEntity.columnLogicName %> */
-	<% if(columnEntity.isPrimaryKey){%>@Id<%}%>
-	@Column(nullable = <%=columnEntity.nullable%>, columnDefinition ="<%=columnEntity.type %>(<%=columnEntity.length %>)<% if(columnEntity.initValue!=null&&!columnEntity.initValue.equals("")){%> default columnEntity.initValue<%}%>"<% if(columnEntity.updatable){%>, updatable=true<%}%>)
-	public String <%=columnEntity.columnName %>;<% }%>
-	
-	/** <%=tableEntity.tableLogicName %>のFinderクラス */
-	public static Finder<String, <%=tableEntity.tableName %>> find = 
-    		BaseEntity.getFinder(String.class, <%=tableEntity.tableName %>.class);
+
+    /** <%=columnEntity.columnLogicName %> */
+<% if(columnEntity.primaryKey!=0){%>
+    @Id<%}%>
+<% if(columnEntity.isCreateDt){%>
+    @CreatedTimestamp<%}%>
+<% if(columnEntity.isLastUpdateDt){%>
+    @Version
+    @UpdatedTimestamp<%}%>
+    @Column(nullable = <%=columnEntity.nullable%>, columnDefinition ="<%=columnEntity.type %>(<%=columnEntity.length %>)<% if(columnEntity.initValue!=null&&!columnEntity.initValue.equals("")){%> default <%=columnEntity.initValue%><%}%>"<% if(!columnEntity.updatable){%>, updatable=false<%}%>)
+    public String <%=columnEntity.propertyName %>;
+<% }%>
+
+    /** <%=tableEntity.tableLogicName %>のFinderクラス */
+    public static Finder<String, <%=tableEntity.entityName %>> find =
+            BaseEntity.getFinder(String.class, <%=tableEntity.entityName %>.class);
 
 }

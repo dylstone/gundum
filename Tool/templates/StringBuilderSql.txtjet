@@ -1,4 +1,4 @@
-<%@ jet package="template.ebean.action" imports="java.util.List template.ebean.model.TableEntity template.ebean.model.ColumnEntity" class="SqlEntityTemplate"  %>
+<%@ jet package="template.ebean.action" imports="java.util.List template.ebean.model.TableEntity template.ebean.model.ColumnEntity utils.StringUtil" class="SqlEntityTemplate"  %>
 <% TableEntity tableEntity = (TableEntity) argument; %>
 StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE ");
@@ -12,7 +12,7 @@ StringBuilder sql = new StringBuilder();
 		sql.append("(");
 <% for(ColumnEntity columnEntity: columnEntityList){ %>
 <% if(columnEntity.primaryKey>0){%>
-		sql.append("<%=columnEntity.columnName%> = :where<%=columnEntity.propertyName%> AND ");
+		sql.append("<%=columnEntity.columnName%> = :where<%=StringUtil.capitalize(columnEntity.propertyName)%> AND ");
 <% }%>
 <% }%>
 		sql.append("last_update_dt = :whereLastUpdateDT");
@@ -20,11 +20,11 @@ StringBuilder sql = new StringBuilder();
 
 		SqlUpdate update = Ebean.createSqlUpdate(sql.toString());
 <% for(ColumnEntity columnEntity: columnEntityList){ %>
-		update.setParameter("<%=columnEntity.columnName%>", <%=tableEntity.entityName%>.<%=columnEntity.propertyName%>);
+		update.setParameter("<%=columnEntity.columnName%>", <%=StringUtil.decapitalize(tableEntity.entityName)%>.<%=columnEntity.propertyName%>);
 <% }%>
 <% for(ColumnEntity columnEntity: columnEntityList){ %>
 <% if(columnEntity.primaryKey>0){%>
-		update.setParameter("<%=columnEntity.columnName%>", <%=tableEntity.entityName%>.<%=columnEntity.propertyName%>);
+		update.setParameter("<%=columnEntity.columnName%>", <%=StringUtil.decapitalize(tableEntity.entityName)%>.<%=columnEntity.propertyName%>);
 <% }%>
 <% }%>
 		update.setParameter("whereLastUpdateDT", lastUpdateDT);

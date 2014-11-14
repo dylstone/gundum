@@ -3,6 +3,7 @@ package template.ebean.action;
 import java.util.List;
 import template.ebean.model.TableEntity;
 import template.ebean.model.ColumnEntity;
+import utils.StringUtil;
 
 public class SqlEntityTemplate {
 	protected static String nl;
@@ -63,7 +64,8 @@ public class SqlEntityTemplate {
 				stringBuffer.append(TEXT_7);
 				stringBuffer.append(columnEntity.columnName);
 				stringBuffer.append(TEXT_8);
-				stringBuffer.append(columnEntity.propertyName);
+				stringBuffer.append(StringUtil
+						.capitalize(columnEntity.propertyName));
 				stringBuffer.append(TEXT_9);
 			}
 		}
@@ -72,7 +74,8 @@ public class SqlEntityTemplate {
 			stringBuffer.append(TEXT_11);
 			stringBuffer.append(columnEntity.columnName);
 			stringBuffer.append(TEXT_12);
-			stringBuffer.append(tableEntity.entityName);
+			stringBuffer
+					.append(StringUtil.decapitalize(tableEntity.entityName));
 			stringBuffer.append(TEXT_13);
 			stringBuffer.append(columnEntity.propertyName);
 			stringBuffer.append(TEXT_14);
@@ -82,7 +85,8 @@ public class SqlEntityTemplate {
 				stringBuffer.append(TEXT_15);
 				stringBuffer.append(columnEntity.columnName);
 				stringBuffer.append(TEXT_16);
-				stringBuffer.append(tableEntity.entityName);
+				stringBuffer.append(StringUtil
+						.decapitalize(tableEntity.entityName));
 				stringBuffer.append(TEXT_17);
 				stringBuffer.append(columnEntity.propertyName);
 				stringBuffer.append(TEXT_18);

@@ -1,0 +1,107 @@
+@(lstServiceMaster: List[models.entities.NewServiceMaster],
+formKokyakuInfo: Form[models.entities.KokyakuInfo],
+formWizardInputInfo: Form[models.input.WizardInputInfo],
+mapServiceInfo: Map[String,List[models.entities.NewServiceInfo]]
+)
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0007" class="left box3" style="width: 60%; height:60%;">
+		<table class="stripeTbl" width="100%" border="0" cellspacing="2" cellpadding="3">
+			<tr>
+				<td colspan="2" bgcolor="#72a3ea" class="white">現在契約者情報</td>
+			</tr>
+			<tr>
+				<td width="200" >契約者氏名</td>
+				<td>@(formKokyakuInfo("lastName").value)@(formKokyakuInfo("firstName").value)</td>
+			</tr>
+			<tr>
+				<td>法人部署名担当者</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>契約者住所</td>
+				<td>@(formKokyakuInfo("todouhuken").value)@(formKokyakuInfo("si_ku_gun").value)@(formKokyakuInfo("tyousonOaza").value)@(formKokyakuInfo("azaBanchiGou").value)</td>
+			</tr>
+			<tr>
+				<td>アパートマンション</td>
+				<td>@formKokyakuInfo("apartment").value</td>
+			</tr>
+			<tr>
+				<td>連絡先電話番号</td>
+				<td>@formKokyakuInfo("telNo1").value</td>
+			</tr>
+@if(formKokyakuInfo.get().keiyakuInfo(0) != null){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcMail.size() != 0){
+			@for(servLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen) {
+			<tr>
+				<td>利用コース、利用プラン</td>
+				<td>
+					<p>@(servLst.riyouCourse)</p>
+					<p>@(servLst.riyouPlan)</p>
+				</td>
+			</tr>
+			<tr>
+				<td>TT-phone状態</td>
+				<td>@servLst.ttPhoneStatus</td>
+			</tr>
+			<tr>
+				<td>ソク割15(ソク割、ソク割ワイド)</td>
+				<td>@servLst.sokuwari15</td>
+			</tr>
+			}
+		}	
+	}
+}
+		</table>
+		<table class="stripeTbl" width="100%" border="0" cellspacing="2" cellpadding="3" class="mt20">
+			<tr>
+				<td colspan="2" bgcolor="#72a3ea" class="white">移転先契約プラン情報</td>
+			</tr>
+			<tr>
+				<td width="200" >ご利用プラン</td>
+				<td>
+				@defining(utils.ServiceUtil.convCodeToName(formWizardInputInfo("inputRiyouCourse").value ,lstServiceMaster)){d => @d}
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">フレッツひかり開通工事日</td>
+				<td>
+					<input class="bodyInfo jquery-ui-datepicker" type="text" name="SSCR0004.wizardContents.inputKaitsuuKoujibi" value="@(formWizardInputInfo("inputKaitsuuKoujibi").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>工事予定日</td>
+				<td>
+					<!-- <select name="select">
+						<option>　　　</option>
+					</select>
+				    年
+				    <select name="select2">
+						<option>　　　</option>
+					</select>
+					月
+					<select name="select3">
+						<option>　　　</option>
+					</select>
+					月 -->
+					<input class="bodyInfo jquery-ui-datepicker" type="text" name="SSCR0004.wizardContents.inputKoujiYoteibi" value="@(formWizardInputInfo("inputKoujiYoteibi").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>IT-phone申込</td>
+				<td>
+					<select name="SSCR0004.wizardContents.inputItPhoneStatus">
+						<option value="000">選択して下さい</option>
+                    </select>
+                </td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

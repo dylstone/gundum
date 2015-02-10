@@ -1,0 +1,50 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo])
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0003" class="box line">
+		<table class="stripeTbl" width="100%" border="0" cellspacing="2" cellpadding="3">
+			<tr>
+				<td width="25%" bgcolor="#72a3ea" class="white"></td>
+				<td width="40%" bgcolor="#72a3ea" class="white">移転前</td>
+			</tr>
+			<tr>
+				<td>月額料金</td>
+				<td id="getsugakuRyoukin">
+@if(formKokyakuInfo.get().keiyakuInfo.size() != 0){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@for(servLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo) {
+			@for(lstKaisen <- servLst.svcKaisen) {
+					<p>
+				@(lstKaisen.serviceMaster.serviceMeishou):@defining(utils.Formatter.convAddComma(lstKaisen.serviceMaster.serviceRyoukin.getsugakuRyoukin)){d => @d}円
+					</p>
+			}
+			@for(lstSecurity <- servLst.svcSecurity) {
+					<p>
+				@(lstSecurity.serviceMaster.serviceMeishou):@defining(utils.Formatter.convAddComma(lstSecurity.serviceMaster.serviceRyoukin.getsugakuRyoukin)){d => @d}円
+					</p>
+			}
+			@for(lstOption <- servLst.svcOption) {
+					<p>
+				@(lstOption.serviceMaster.serviceMeishou):@defining(utils.Formatter.convAddComma(lstOption.serviceMaster.serviceRyoukin.getsugakuRyoukin)){d => @d}円
+					</p>
+			}
+			@for(lstMail <- servLst.svcMail) {
+					<p>
+				@(lstMail.serviceMaster.serviceMeishou):@defining(utils.Formatter.convAddComma(lstMail.serviceMaster.serviceRyoukin.getsugakuRyoukin)){d => @d}円
+					</p>
+			}
+		}
+	}
+}
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+

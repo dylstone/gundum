@@ -1,0 +1,28 @@
+@(lstSearchResult: List[models.sqlrows.ApplyUketsukeInfo])
+
+@import helper._
+
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/sf_apply_shonin.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/fn_winsize.js")" type="text/javascript"></script>
+</head>
+<body>
+	<div id="shoninContents" class="jqDnR gse-subframe gse-id-shoninContents">
+		<div class="jqHandle jqDrag"></div>
+		<h2>承認一覧</h2>
+		<p class="btn_close2">
+			<a href="#" onClick="w_shoninContents_close()"><img src="@routes.Assets.at("images/btn_close.gif")"></a>
+		</p>
+@parts.pt_apply_shonin(lstSearchResult)
+@helper.form(action = routes.ApplyManagement.getApplyDetail, 'id -> "formApplyDetailCond"){
+	<input type="hidden" name="postApplyId" />
+	<input type="hidden" name="postQueueId" />
+	<input type="hidden" name="postKokyakuId" />
+	<input type="hidden" name="postKeiyakuId" />
+	<input type="hidden" name="postActivityId" />
+}
+		<div class="jqHandle jqResize"></div>
+	</div>
+</body>
+</html>

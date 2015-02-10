@@ -1,0 +1,53 @@
+@(iTodoCnt: Integer)
+
+<nav>
+	<h2><a href="#">内向け</a></h2>
+	<ul>
+		<li>├<a href="#"onclick="showSubFrame('searchKokyakuInfo','searchContents,SSCR0001,SSCR0002,SSCR0003,win2,win3')">検索</a></li>
+		<li>├<a href="#">参照</a></li>
+		<li>├<a href="#">各種変更受付</a></li>
+		<li>├<a href="34.html">取次情報取込</a></li>
+		<li>└<a href="37.html">受付</a></li>
+	</ul>
+	
+	<h2><a href="#">外向け</a></h2>
+	<ul>
+		<li>├<a href="#">プラン変更</a></li>
+		<li>├<a href="#">移転</a></li>
+		<li>└<a href="#">新規登録</a></li>
+	</ul>
+	
+	<h2><a href="#" id="win-bt4">AEGIS</a></h2>
+	
+	<h2><a href="22.html">ポータル</a></h2>
+	<ul>
+		<li class="todo">├<a href="#">ToDo（12件）</a></li>
+		<li>└<a href="#">リリース</a></li>
+	</ul>
+	<div class="todo_box">
+		<h2>To Do</h2>
+		<h3>承認</h3>
+		<ul>
+			<li>├<span><a href="#">解約（4件）</a></span></li>
+			<li>├<span class="red"><a href="#"onclick="showSubFrame('applyShonin','shoninContents')">移転（@iTodoCnt 件）</a></span></li>
+			<li>├コース変更</li>
+			<li>├オプション変更</li>
+			<li>├<span><a href="#">支援案件（1件）</a></span></li>
+		</ul>
+		<h3>作業</h3>
+		<ul>
+			<li>├<span><a href="29.html">CB（12件）</a></span></li>
+			<li>├不備解消</li>
+			<li>├支援案件登録</li>
+			<li>├受付表登録</li>
+			<li>├<span><a href="33.html">取次申請（12件）</a></span></li>
+			<li>├<span><a href="35.html">取次進捗確認（12件）</a></span></li>
+		</ul>
+		<h3>○○○</h3>
+		<ul>
+			<li>├指示割当</li>
+			<li>├取次情報未完了</li>
+			<li>├通知発送</li>
+		</ul>
+	</div>
+</nav>

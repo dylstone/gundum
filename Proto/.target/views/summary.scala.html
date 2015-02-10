@@ -1,0 +1,65 @@
+@(paymentMethodChangeInfo: PaymentMethodChangeInfo) 
+
+@main("支払方法変更が承認されました!") {
+    <fieldset>
+            <legend>支払方法変更承認情報</legend>
+            <h2>要求区分</h2>
+            <ul>
+             @if(paymentMethodChangeInfo.requestType==0)  {
+                <li>登録</li>
+            } else {
+               　　　　　　　　<li>変更</li>
+            }
+            </ul>
+            
+            <h2>事業区分コード</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.businessType</li>
+            </ul>
+            
+            <h2>ブランドコード</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.brandType</li>
+            </ul>
+            
+            <h2>契約ID</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.contractID</li>
+            </ul>
+            
+            <h2>請求ID</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.requestID</li>
+            </ul>
+                 
+            <h2>支払方法種別コード</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.payMethodType</li>
+            </ul>       
+
+
+			<h2>申込日</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.applyDate</li>
+            </ul>  
+            
+            
+            <h2>支払方法適用開始月</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.validStartMonth</li>
+            </ul>
+            
+            <h2>顧客ID</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.customerID</li>
+            </ul>
+            
+            <h2>ユーザＩＤ</h2>
+            <ul>
+                <li>@paymentMethodChangeInfo.userID</li>
+            </ul>
+            
+        </fieldset>
+        
+}
+

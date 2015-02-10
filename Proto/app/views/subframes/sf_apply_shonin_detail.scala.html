@@ -1,0 +1,68 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo],
+formApplyInfo: Form[models.entities.ApplyInfo],
+formWizardInputInfo: Form[models.input.WizardInputInfo],
+mapServiceInfo: Map[String,List[models.entities.NewServiceInfo]],
+mapApplyServiceInfo: Map[String,List[models.entities.NewApplyServiceInfo]],
+lstServiceMaster: List[models.entities.NewServiceMaster],
+keyId: String,
+activityId: String
+)
+
+@import helper._
+@import utils._
+
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/sf_shonin_detail.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/fn_winsize.js")" type="text/javascript"></script>
+</head>
+<body>
+	<div id="shoninContents" class="jqDnR diffWidth">
+		<div class="jqHandle jqDrag"></div>
+		<h2 id="kokyakuShimei">承認詳細画面</h2>
+		<p class="btn_close2">
+			<a href="#" onClick="w_shoninContents_close()"><img src="@routes.Assets.at("images/btn_close.gif")"></a>
+		</p>
+		<div class="cf">
+			<p><a href="#" onclick="showSubFrame('applyShonin','shoninContents')">一覧へ戻る</a></p>
+            <p class="imagesContents" style="float: left;">
+            	<img src="@routes.Assets.at(Messages.get("service_cd." + formWizardInputInfo("inputRiyouCourse").value))">
+            </p>
+        </div>
+		<button id="ITEM0013" class="kakutei" onClick="DoUpdate('formShoninCond','@routes.ApplyManagement.shoninResult()');">更新</button>
+		<ul id="shoninTab" class="tab clear-float">
+			<li><button id="TabPSCR0020" class="tabButton">契約者情報</button></li>
+			<li><button id="TabPSCR0021" class="tabButton">サービス情報</button></li>
+			<li><button id="TabPSCR0022" class="tabButton">料金情報</button></li>
+			<li><button id="TabPSCR0023" class="tabButton">オプション情報</button></li>
+			<li><button>支払情報</button></li>
+		</ul>
+		<!-- 顧客情報画面部品 START-->
+		@parts.pt_keiyaku_info_shonin(formKokyakuInfo,formApplyInfo,formWizardInputInfo)
+		<!-- 顧客情報画面部品 END-->
+		
+		<!-- サービス情報画面部品 START-->
+		@parts.pt_service_info_shonin(formKokyakuInfo, mapServiceInfo, formWizardInputInfo)
+		<!-- サービス情報画面部品 END-->
+		
+		<!-- 料金情報画面部品 START-->
+		@parts.pt_ryoukin_info_shonin(formKokyakuInfo)
+		<!-- 料金情報画面部品 END-->
+		
+		<!-- オプション情報画面部品 START-->
+		@parts.pt_option_info_shonin(lstServiceMaster, formKokyakuInfo, mapApplyServiceInfo, formApplyInfo)
+		<!-- オプション情報画面部品 END-->
+
+		<div class="jqHandle jqResize"></div>
+		<div id="tabCntl"></div>
+		<div>
+		@helper.form(action = routes.ApplyManagement.shoninResult, 'id -> "formShoninCond"){
+				<input type="hidden" name="activityId" value="@(activityId)" />
+				<input type="hidden" name="queueId" value="@(keyId)" />
+				<input type="hidden" name="kokyakuId" value="@(formKokyakuInfo("kokyakuId").value)" />
+				<input type="hidden" name="keiyakuId" value="@(formKokyakuInfo.get().keiyakuInfo(0).keiyakuId)" />
+		}
+		</div>
+	</div>
+</body>
+</html>

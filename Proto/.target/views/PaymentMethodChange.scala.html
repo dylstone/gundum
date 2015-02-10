@@ -1,0 +1,95 @@
+@(paymentMethodChangeInfoForm: Form[PaymentMethodChangeInfo])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("支払方法変更承認") {
+    
+    @helper.form(action = routes.PaymentMethodChange.submit) {
+        
+        <fieldset>
+            <legend>支払方法変更承認情報入力</legend>
+            
+            @select(
+                paymentMethodChangeInfoForm("requestType"), 
+                options = Seq("0" -> "登録", "1" -> "変更"),
+                '_default -> "--- 要求区分を選択ください ---",
+                 '_label -> "要求区分", 
+                '_help -> "登録、変更を判別する区分。",
+                '_error -> paymentMethodChangeInfoForm("requestType").error.map(_.withMessage("要求区分を選択ください"))
+            )
+            
+            @select(
+                paymentMethodChangeInfoForm("businessType"),
+                options = options(BusinessTypes.list),
+                '_default -> "--- 事業区分コードを選択ください ---",
+                '_label -> "事業区分コード",
+                '_help -> "事業を判別する区分。ISPなど",
+                '_error -> paymentMethodChangeInfoForm("businessType").error.map(_.withMessage("事業区分コードを選択ください "))
+            )
+            
+            @select(
+                paymentMethodChangeInfoForm("brandType"),
+                options = options(BrandTypes.list),
+                '_default -> "--- ブランドコードを選択ください ---",
+                '_label -> "ブランドコード",
+                '_help -> "事業ごとのブランド　ISP事業のブランドはTCOM、TNC",
+                '_error -> paymentMethodChangeInfoForm("businessType").error.map(_.withMessage("ブランドコードを選択ください "))
+            )
+            
+            @inputText(
+                paymentMethodChangeInfoForm("contractID"), 
+                '_label -> "契約ID",
+                '_help -> "契約を一意に識別するID。"
+            )
+            
+            @inputText(
+                paymentMethodChangeInfoForm("requestID"), 
+                '_label -> "請求ID",
+                '_help -> "請求先を一意に特定するID。既存の請求先：請求ID; 新規の請求先：値なし; 要求区分「変更」の場合、必須"
+            )
+
+            @select(
+                paymentMethodChangeInfoForm("payMethodType"),
+                options = options(PayMethodTypes.list),
+                '_default -> "--- 支払方法種別コードを選択ください ---",
+                '_label -> "支払方法種別コード",
+                '_help -> "支払方法の種別を表すコード。",
+                '_error -> paymentMethodChangeInfoForm("businessType").error.map(_.withMessage("支払方法種別コードを選択ください "))
+            )
+            @inputText(
+                paymentMethodChangeInfoForm("applyDate"), 
+                '_label -> "申込日",
+                'placeholder ->"20140101",
+                '_help -> "支払方法登録、変更の申込日。日付(yyyymmdd)"
+            )
+            
+            @inputText(
+                paymentMethodChangeInfoForm("validStartMonth"), 
+                '_label -> "支払方法適用開始月",
+                'placeholder ->"201401",
+                '_help -> "年月(yyyymm)"
+            )
+            
+            @inputText(
+                paymentMethodChangeInfoForm("customerID"), 
+                '_label -> "顧客ID",
+                '_help -> "顧客ID。"
+            )
+            
+            @inputText(
+                paymentMethodChangeInfoForm("userID"), 
+                '_label -> "ユーザＩＤ",
+                '_help -> "汎用機自振依頼情報、請求書情報で利用する。"
+            )
+            
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Submit">
+            <a href="@routes.Application.index" class="btn">Cancel</a>
+        </div>
+        
+    }
+    
+}

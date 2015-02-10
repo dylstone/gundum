@@ -1,0 +1,12 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~                 
+
+# ベースフレーム表示
+POST     /showBaseFrame            /saiken/
+
+# 顧客情報検索初期表示
+POST     /searchKokyakuInfo       /saiken/     
+
+# 顧客情報検索処理
+POST     /searchResultKokyakuInfo  /saiken/          

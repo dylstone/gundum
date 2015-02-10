@@ -1,0 +1,39 @@
+@(formOperatorMaster: Form[models.entities.OperatorMaster], iTodoCnt: Integer, strBrand: String)
+
+@import helper._
+@import utils._
+
+@header()
+
+<body>
+<!-- Header Start -->
+<div id="header">
+	<div class="left">
+		<p class="id">ID : @formOperatorMaster("operatorId").value</p>
+	</div>
+	<div class="right">
+		<p class="imagesBrandLogoContents">
+			<img src="@routes.Assets.at(Messages.get(strBrand))">
+		</p>
+		<h1>@formOperatorMaster("operatorName").value</h1>
+		@ui.views.html.mypage_control_panel()
+	</div>
+</div>
+<!-- Header End -->
+ @parts.pt_menu(iTodoCnt)
+<!-- Contents Start -->
+<div id="contents" class="gse-subframes">
+	@parts.pt_fusen()
+</div>
+<!-- Contents End -->
+<!-- Hidden系 START -->
+<!--検索リンク用フォーム START -->
+ @helper.form(action = routes.KokyakuInfoManagement.initSearch, 'id -> "formKokyakuInfoCond", 'name -> "operatorMaster"){
+	<input type="hidden" name="operatorId" value="@(formOperatorMaster("operatorId").value)"/>
+	<input type="hidden" name="operatorPwd" value="@(formOperatorMaster("operatorPwd").value)"/>
+}
+ <!-- Hidden系 END -->
+</body>
+</html>
+
+

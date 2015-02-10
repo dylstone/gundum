@@ -1,0 +1,109 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /*file               controllers.Assets.at(path="/public", file)
+
+# ベースフレーム表示
+POST     /showBaseFrame            controllers.KokyakuInfoManagement.showBaseFrame()
+
+# 顧客情報検索初期表示
+POST     /searchKokyakuInfo            controllers.KokyakuInfoManagement.initSearch()
+
+# 顧客情報検索処理
+POST     /searchResultKokyakuInfo            controllers.KokyakuInfoManagement.searchResult()
+
+# 顧客情報取得
+POST     /getKokyakuInfo            controllers.Application.getKokyakuInfo()
+
+# 開局チェック情報取得
+POST     /getKaikyokuCheckInfo            controllers.Application.getKaikyokuCheckInfo()
+
+# 移転先申込処理
+POST     /itensakiMoushikomi            controllers.Application.itensakiMoushikomi()
+
+# 開局チェック戻り
+POST     /kaikyokuCheckBack            controllers.Application.kaikyokuCheckBack()
+
+# 移転先申込処理戻り
+POST     /itensakiMoushikomiBack            controllers.Application.itensakiMoushikomiBack()
+
+# 申込確認情報表示処理
+POST     /moushikomiKakuninInfo            controllers.Application.moushikomiKakuninInfo()
+
+# MyPage
+POST	/mypage/load                ui.controllers.MyPageManagement.load()
+POST	/mypage/save                ui.controllers.MyPageManagement.save()
+
+#Payment Method Change
+GET     /paymentMethodChange      controllers.PaymentMethodChange.blank()
+POST    /paymentMethodChange      controllers.PaymentMethodChange.submit()
+
+# 申込顧客情報登録処理
+POST     /tourokuApplyKokyakuInfo            controllers.Application.tourokuApplyKokyakuInfo()
+
+# 対応履歴情報登録処理
+POST     /tourokuTaiouRirekiInfo            controllers.Application.tourokuTaiouRirekiInfo()
+
+# 申込受付一覧表示処理
+POST     /applyShonin            controllers.ApplyManagement.initSearch()
+
+# 申込受付承認処理
+POST     /resultShonin            controllers.ApplyManagement.shoninResult()
+
+# ＳＯ指示登録処理
+POST     /soshiji                           controllers.BatchManager.soInput()
+
+# ＳＯ指示送信処理
+POST     /sososhin                           controllers.BatchManager.sendSOInput()
+
+# ＳＯ受信結果更新処理
+POST     /sojushin                           controllers.BatchManager.receiveSOOutput()
+
+# ＳＯ結果反映処理
+POST     /sokekka                           controllers.BatchManager.reflectSOOutput()
+
+# パーマネント反映
+POST     /permanent                           controllers.BatchManager.registParmanent()
+
+# 次ステータス更新
+POST     /next                           controllers.BatchManager.nextStatus()
+
+# トランザクションデータ生成
+POST    /makeTransaction            controllers.BatchController.makeTransaction()
+
+# 手続き進捗キュー生成
+POST    /makeProgressQueue          controllers.BatchController.makeProgressQueue()
+
+# サービスワークフロー実行
+POST    /startWorkFlow              controllers.BatchController.startWorkFlow()
+
+# オプション登録情報取得
+POST     /tourokuOption            controllers.Application.tourokuOption()
+
+# オプション登録確認
+POST     /refOption            controllers.Application.refOption()
+
+# オプション完了
+POST     /kanryouOption            controllers.Application.kanryouOption()
+
+# 承認詳細初期表示
+POST     /getApplyDetail            controllers.ApplyManagement.getApplyDetail()
+
+# 申込履歴登録
+POST     /makeApplyRireki            controllers.ApplyRirekiManagement.makeApplyRireki()
+
+# 最適商品提案検索画面表示
+POST     /searchBestPlan            controllers.BestPlanManagement.initSearch()
+
+# 最適商品提案一覧表示
+POST     /searchResultBestPlan            controllers.BestPlanManagement.searchResult()
+
+# シュミレーション表示
+POST     /ryokinSimulation            controllers.BestPlanManagement.ryokinSimulation()
+
+

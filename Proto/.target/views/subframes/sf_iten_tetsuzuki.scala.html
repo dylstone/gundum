@@ -1,0 +1,76 @@
+@(lstServiceMaster: List[models.entities.NewServiceMaster],
+	formKokyakuInfo: Form[models.entities.KokyakuInfo],
+	formWizardInputInfo: Form[models.input.WizardInputInfo],
+	mapServiceInfo: Map[String,List[models.entities.NewServiceInfo]]
+	)
+@import helper._
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/fn_winsize.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/common.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/sf_wizard.js")" type="text/javascript"></script>
+	<script>
+	$(document).ready(function(){
+	    $("#wizardInputInfoForm").validationEngine('attach', {
+	    	relative: true,
+			overflownDIV:"#wizardContents",
+			promptPosition:"topRight"
+		});
+	});
+
+
+	</script>
+</head>
+<body>
+	<div id="SSCR0004" class="jqDnR">
+		<div class="jqHandle jqDrag"><h2>開局確認</h2></div>
+		<p class="btn_close"><a onClick="w_win_layer5_close()"><img src="@routes.Assets.at("images/btn_close.gif")"></a></p>
+		<div class="p10 cf">
+			<div id="wizardStatus" style="width: 100%;">
+				<ul class="flow mt20">
+					<li class="active">開局<br>チェック</li>
+					<li>移転コース<br>申込</li>
+					<li>契約者情報<br>変更</li>
+					<li>auひかり<br>解約案内</li>
+					<li>支払方法<br>変更</li>
+				</ul>
+			</div>
+			<div id="wizardContents" class="mt20 cf" style="position:relative; overflow:scroll;">
+			<form id="wizardInputInfoForm" name="wizardInputInfoForm" method="post" style="position:relative;">
+@parts.pt_kaikyoku_check(lstServiceMaster, formKokyakuInfo, formWizardInputInfo)
+@parts.pt_itensaki_course_mousikomi(lstServiceMaster, formKokyakuInfo, formWizardInputInfo, mapServiceInfo)
+			</form>
+				<!-- <div class="line right" style="width: 36%;">
+					<table width="100%" border="0" cellspacing="2" cellpadding="3">
+						<tr>
+							<th width="50%" height="20" align="center" bgcolor="#D02222" style="color:#FFFFFF;">対応内容</th>
+							<th width="50%" height="20" align="center" bgcolor="#D02222" style="color:#FFFFFF;">対応結果</th>
+						</tr>
+						<tr>
+							<td width="50%" align="left" valign="top" bgcolor="#D98686"><textarea name="" rows="20" class="ph2 t_area" title="AAAAAA" style="width:97%;"></textarea></td>
+							<td width="50%" align="left" valign="top" bgcolor="#E9E6D6"><textarea name="" rows="20" class="ph2 t_area" title="あいうえお" style="width:97%;"></textarea></td>
+						</tr>
+					</table>
+				</div> -->
+			</div>
+			<div id="wizardCtrl1" class="tab mt30">
+				<ul  style="width: 10em;margin: 0 auto;">
+					<li><button class="active" onClick="doPrev('@routes.Application.kaikyokuCheckBack()');">戻る</button></li>
+					<li><button class="active" onClick="doNextForm('wizardInputInfoForm','@routes.Application.itensakiMoushikomi()');">次へ</button></li>
+				</ul>
+			</div>
+			<div id="wizardCtrl2" class="tab mt30">
+				<ul  style="width: 10em;margin: 0 auto;">
+					<li><button class="active" onClick="doPrev('@routes.Application.itensakiMoushikomiBack()');">戻る</button></li>
+					<li><button class="active" onClick="doNextForm('wizardInputInfoForm','@routes.Application.moushikomiKakuninInfo()');">次へ</button></li>
+				</ul>
+			</div>
+		</div>
+		<div class="jqHandle jqResize"></div>
+		<input id= "wizardFlg" type="hidden" value=""/>
+</body>
+</html>
+
+
+
+		

@@ -1,0 +1,72 @@
+@(
+	lstServiceMaster: List[models.entities.NewServiceMaster], 
+	formKokaykuInfo: Form[models.entities.KokyakuInfo],
+	formApplyInfo: Form[models.entities.ApplyInfo]
+)
+
+@import helper._
+@import java.util._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0012" class="box line">
+@helper.form(action = routes.Application.tourokuApplyKokyakuInfo, 'id -> "updateApplyForm"){
+		<div class="p10">
+		<table id="option_setting" width="100%" border="0" cellspacing="2" cellpadding="3">
+			<thead>
+				<tr>
+					<td width="30%" bgcolor="#72a3ea" class="white">設置場所</td>
+					<td width="45%" bgcolor="#72a3ea" class="white">移転前</td>
+					<td width="25%" bgcolor="#E86F33" class="white">移転後</td>
+				</tr>
+			</thead>
+			<tbody>
+@for(servLst <- lstServiceMaster){
+	@if(servLst.serviceBunrui != null){
+		@if(servLst.serviceBunrui.serviceBunruiCd == "0007"){
+				<tr>
+					<td bgcolor="#D1E0F8">@servLst.serviceMeishou</td>
+					<td bgcolor="#D1E0F8">
+						<p class="permInfoCell">
+			@for(lstSettingOption <- formKokaykuInfo.get().keiyakuInfo(0).serviceInfo(0).svcSettingOption){
+				@(lstSettingOption.todouhuken)@(lstSettingOption.siKuGun)@(lstSettingOption.tyousonOaza)@(lstSettingOption.azaBanchiGou)@(lstSettingOption.apartment)@(lstSettingOption.apartmentRoomNo)
+			}
+						</p>
+					</td>
+					<td bgcolor="#FFE3D6">
+						<p class="applyInfoCell" style="float: left;">
+			@if(formApplyInfo != null){
+				@if(formApplyInfo.get().newApplyServiceInfo(0).applySvcSettingOption != null && formApplyInfo.get().newApplyServiceInfo(0).applySvcSettingOption.size() > 0){
+					@for(lstApplySettingOption <- formApplyInfo.get().newApplyServiceInfo(0).applySvcSettingOption){
+						@(lstApplySettingOption.todouhuken)@(lstApplySettingOption.siKuGun)@(lstApplySettingOption.tyousonOaza)@(lstApplySettingOption.azaBanchiGou)@(lstApplySettingOption.apartment)@(lstApplySettingOption.apartmentRoomNo)
+					}
+				}else{
+					@for(lstSettingOption <- formKokaykuInfo.get().keiyakuInfo(0).serviceInfo(0).svcSettingOption){
+						@(lstSettingOption.todouhuken)@(lstSettingOption.siKuGun)@(lstSettingOption.tyousonOaza)@(lstSettingOption.azaBanchiGou)@(lstSettingOption.apartment)@(lstSettingOption.apartmentRoomNo)
+					}
+				}
+			}else{
+				@for(lstSettingOption <- formKokaykuInfo.get().keiyakuInfo(0).serviceInfo(0).svcSettingOption){
+					@(lstSettingOption.todouhuken)@(lstSettingOption.siKuGun)@(lstSettingOption.tyousonOaza)@(lstSettingOption.azaBanchiGou)@(lstSettingOption.apartment)@(lstSettingOption.apartmentRoomNo)
+				}
+			}
+						</p>
+						<p class="mr10" style="float: right;"><input type="button" class="red settingOptionStatus" value="申込" style="width: 5em;"></p>
+					</td>
+					<td><input type="hidden" name="optionSettingServiceCd" value="@servLst.serviceCd"></td>
+					<td><input type="hidden" name="optionSettingUpdFlg" value=""></td>
+				</tr>
+			
+		}
+	}
+}
+			</tbody>
+		</table>
+		</div>
+}
+	</div>
+</body>
+</html>
+

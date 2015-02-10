@@ -1,0 +1,91 @@
+@()
+
+@import helper._
+
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/sf_kokyaku_search.js")" type="text/javascript"></script>
+</head>
+<body>
+@helper.form(action = routes.KokyakuInfoManagement.searchResult, 'id -> "formSearchCond"){
+	<div id="searchContents">
+		<table>
+			<tr>
+				<th>契約ID</th>
+				<td><input id = "keiyakuId" type="text" name="keiyakuId" value=""	 size="32"></td>
+				<td><input type="button" value="検索" onclick="searchEvent('formSearchCond')"></td>
+			</tr>
+		</table>
+	</div>
+}
+	<div id="searchResult" style="text-align: center;margin-top: 50px;">
+		<p style="font-size:0.85em;text-align:left;margin-left: 5%;color:#444444;"</p>
+		<p class="align-right p5" style="width: 90%;">
+			<input type="radio" value="radiobutton" name="r1" checked>20　<input type="radio" value="radiobutton" name="r1">30　<input type="radio" value="radiobutton" name="r1">50
+		</p>
+		<div id="outGrid">
+			<div id="inGrid">
+				<table  id="searchResultTable">
+					<colgroup class="colNo"></colgroup>
+					<colgroup class="colKokyakuUserId"></colgroup>
+					<colgroup class="colKokyakuName"></colgroup>
+					<colgroup class="colTelNo"></colgroup>
+					<colgroup class="colNTTShuyoukyoku"></colgroup>
+					<colgroup class="colRakurakuPlan"></colgroup>
+					<colgroup class="colADSL"></colgroup>
+					<colgroup class="colKaisen"></colgroup>
+					<colgroup class="colTTPhone"></colgroup>
+					<colgroup class="colYouchui"></colgroup>
+					<colgroup class="colDM"></colgroup>
+					<colgroup class="colTaiiki"></colgroup>
+					<thead>
+						<tr>
+							<th class="colNo">No.</th>
+							<th class="colKokyakuUserId">ユーザID</th>
+							<th class="colKokyakuName">顧客氏名</th>
+							<th class="colTelNo">電話番号</th>
+							<th class="colNTTShuyoukyoku">NTT収容局</th>
+							<th class="colRakurakuPlan">らくらくプラン</th>
+							<th class="colADSL">ADSL</th>
+							<th class="colKaisen">回線</th>
+							<th class="colTTPhone">TT_phone</th>
+							<th class="colYouchui">要注意</th>
+						    <th class="colDM">DM</th>
+						    <th class="colTaiiki">帯域</th>
+						    <th class="searchResultKokyakuId"></th>
+						    <th class="searchResultKeiyakuId">帯域</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="dataNo"</td>
+							<td class="dataKokyakuUserId"><a href="#"></td>
+							<td class="dataKokyakuName"><a href="#"></a></td>
+							<td class="dataTelNo"></td>
+							<td class="dataNTTShuyoukyoku"></td>
+							<td class="dataRakurakuPlan"></td>
+							<td class="dataADSL"></td>
+							<td class="dataKaisen"></td>
+							<td class="dataTTPhone"></td>
+							<td class="dataYouchui"></td>
+						    <td class="dataDM">&nbsp;</td>
+						    <td class="dataTaiiki">&nbsp;</td>
+						    <td class="searchResultKokyakuId"><input type="hidden" name="kokyakuId"  /></td>
+							<td class="searchResultKeiyakuId"><input type="hidden" name="keiyakuId"  /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<p style="font-size:0.85em;text-align:left;margin-left: 5%;color:#444444;"></p>
+	       <div class="align-center pb10">＜前のページ　　<strong>1</strong>　　次のページ＞</div>
+	</div>
+@helper.form(action = routes.Application.getKokyakuInfo, 'id -> "formKokyakuInfoCond"){
+	<input type="hidden" name="postKokyakuId" />
+	<input type="hidden" name="postKeiyakuId" />
+	<input type="hidden" name="operatorId" value=""/>
+	<input type="hidden" name="operatorPwd" value=""/>
+}
+</body>
+</html>
+

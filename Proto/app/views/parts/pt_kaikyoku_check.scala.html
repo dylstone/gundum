@@ -1,0 +1,109 @@
+@(lstServiceMaster: List[models.entities.NewServiceMaster],
+	formKokyakuInfo: Form[models.entities.KokyakuInfo],
+	formWizardInputInfo: Form[models.input.WizardInputInfo])
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+		<div id="PSCR0006" class="left box3" style="width: 60%; height:60%;">
+		<table class="stripeTbl" width="100%" border="0" cellspacing="2" cellpadding="3">
+			<tr>
+				<td colspan="2" bgcolor="#72a3ea" class="white">開局チェック</td>
+			</tr>
+			<tr>
+				<td width="200" class="headerInfo">利用コース</td>
+				<td>
+					<select id="riyouCource" name="SSCR0004.wizardContents.inputRiyouCourse" class="bodyInfo">
+					@for(lst <- lstServiceMaster){
+					    <option value=@lst.serviceCd>@lst.serviceMeishou</option>
+					}
+					</select>
+					<input id="selRiyouCource" type="hidden" name="SSCR0004.wizardContents.inputRiyouCourse" value="@(formWizardInputInfo("inputRiyouCourse").value)"/>
+					<input id="inputRiyouCourseName" type="hidden" name="SSCR0004.wizardContents.inputRiyouCourseName" value="@(formWizardInputInfo("inputRiyouCourseName").value)">
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">郵便番号</td>
+				<td>
+					<span class="left">
+						<input name="SSCR0004.wizardContents.inputZipNo1" class="validate[required,custom[onlyNumberSp],maxSize[3]] bodyInfo" type="text" value="@(formWizardInputInfo("inputZipNo1").value)" size="10">　
+						<input name="SSCR0004.wizardContents.inputZipNo2" class="validate[required,custom[onlyNumberSp],maxSize[4]] bodyInfo" type="text" value="@(formWizardInputInfo("inputZipNo2").value)" size="20">
+					</span>
+					<p class="left ml10"><button class="active">住所検索</button></p>
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">都道府県</td>
+				<td >
+					<span class="left">
+						<input id="todouhuken" name="SSCR0004.wizardContents.inputTodouhuken" class="validate[required] bodyInfo" type="text" value="@(formWizardInputInfo("inputTodouhuken").value)" size="50">
+					</span>
+					<p class="left ml10"><button class="active">郵便番号検索</button></p>
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">市区郡</td>
+				<td>
+					<input id="siKuGun" name="SSCR0004.wizardContents.inputSiKuGun" class="validate[required] bodyInfo" type="text" value="@(formWizardInputInfo("inputSiKuGun").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">町村/大字</td>
+				<td >
+					<input id="tyousonOaza" name="SSCR0004.wizardContents.inputTyousonOaza" class="validate[required]  bodyInfo" type="text" value="@(formWizardInputInfo("inputTyousonOaza").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">字/番地/号</td>
+				<td>
+					<input id="azaBanchiGou" name="SSCR0004.wizardContents.inputAzaBanchiGou" class="validate[required] bodyInfo" type="text" value="@(formWizardInputInfo("inputAzaBanchiGou").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">アパートマンション</td>
+				<td >
+					<input id="apartment" class="bodyInfo" name="SSCR0004.wizardContents.inputApartment" type="text" value="@(formWizardInputInfo("inputApartment").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">部屋番号</td>
+				<td>
+					<input id="apartmentRoomNo" name="SSCR0004.wizardContents.inputApartmentRoomNo" class="bodyInfo" type="text" value="@(formWizardInputInfo("inputApartmentRoomNo").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">着付/様方</td>
+				<td>
+					<input id="kidukeSama" name="SSCR0004.wizardContents.inputKidukeSama" class="bodyInfo" type="text" value="@(formWizardInputInfo("inputKidukeSama").value)" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td class="headerInfo">電話番号</td>
+				<td>
+					<input id="telNo1" name="SSCR0004.wizardContents.inputTelNo" class="validate[required,custom[phone]] bodyInfo" type="text" value="@(formWizardInputInfo("inputTelNo").value)" size="50">
+				</td>
+			</tr>
+		</table>
+		<div class="bg_blue p10 mt20">
+			<h4 class="left">開局コース</h4><p class="left ml30"><a href="#">すべて表示</a>　<a href="#">すべて閉じる</a></p>
+			<div id="kaikyokuCource" class="p10 clear-float">
+				<p><a href="#">ADSL(t)</a></p>
+				<p><a href="#">ADSL(e)</a></p>
+				<p><a href="#">ADSL(s)(未開局)</a></p>
+				<p><a href="#">auひかり</a></p>
+				<p class="cf">
+					<span class="left headerInfo">フレッツひかり</span>
+					<span id="kaikyokuCourceValue" class="left ml10">
+						<input id="homeType" class="bodyInfo" name="r0" type="radio" value="1" checked="checked"><label for="homeType">ホームタイプ<br></label>
+						<input id="apartmentType" class="bodyInfo" name="r0" type="radio" value="2"><label for="apartmentType">マンションタイプ</label>
+					</span>
+				</p>
+				<p><a href="#">フレッツADSL</a></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

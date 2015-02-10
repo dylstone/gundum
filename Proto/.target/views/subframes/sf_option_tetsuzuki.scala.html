@@ -1,0 +1,53 @@
+@(formServiceInputInfo: Form[models.input.ServiceInputInfo])
+@import helper._
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/fn_winsize.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/common.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("javascripts/sf_wizard.js")" type="text/javascript"></script>
+	<script>
+	$(document).ready(function(){
+	    $("#serviceInputInfoForm").validationEngine();
+	});
+	</script>
+</head>
+<body>
+	<div id="SSCR0004" class="jqDnR">
+		<div class="jqHandle jqDrag"><h2>オプション契約確認</h2></div>
+		<p class="btn_close"><a onClick="w_win_layer5_close()"><img src="@routes.Assets.at("images/btn_close.gif")"></a></p>
+		<div class="p10 cf">
+			<div id="wizardStatus" style="width: 100%;">
+				<ul class="flow mt20">
+					<li class="active">オプション契約<br>確認</li>
+					<li>オプション確認</li>
+					<li>オプション完了</li>
+				</ul>
+			</div>
+			<div id="serviceInputContents" class="mt20 cf">
+				<form id="serviceInputInfoForm" name="serviceInputInfoForm" method="post">
+@parts.pt_option_touroku(formServiceInputInfo)
+@parts.pt_option_kakunin(formServiceInputInfo)
+
+				</form>
+			</div>
+			<div id="wizardCtrl1" class="tab mt30">
+				<ul  style="width: 10em;margin: 0 auto;">
+					<li><button class="active" onClick="doPrev('@routes.Application.kaikyokuCheckBack()');">戻る</button></li>
+					<li><button class="active" onClick="doNextForm('serviceInputInfoForm','@routes.Application.refOption()');">次へ</button></li>
+				</ul>
+			</div>
+			<div id="wizardCtrl2" class="tab mt30">
+				<ul  style="width: 10em;margin: 0 auto;">
+					<li><button class="active" onClick="doPrev('@routes.Application.itensakiMoushikomiBack()');">戻る</button></li>
+					<li><button class="active" onClick="doNextForm('serviceInputInfoForm','@routes.Application.tourokuApplyKokyakuInfo()');">次へ</button></li>
+				</ul>
+			</div>
+		</div>
+		<div class="jqHandle jqResize"></div>
+		<input id= "wizardFlg" type="hidden" value=""/>
+</body>
+</html>
+
+
+
+		

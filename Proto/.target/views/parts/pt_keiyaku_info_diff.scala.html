@@ -1,0 +1,81 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo],
+formApplyInfo: Form[models.entities.ApplyInfo],
+formWizardInputInfo: Form[models.input.WizardInputInfo]
+)
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0008" class="box line">
+		<table width="100%" border="0" cellspacing="2" cellpadding="3">
+			<tr>
+				<td width="25%" bgcolor="#72a3ea" class="white"></td>
+				<td width="40%" bgcolor="#72a3ea" class="white">移転前</td>
+				<td bgcolor="#E86F33" class="white">移転後</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D1E0F8">ユーザパスワード最終更新日</td>
+				<td bgcolor="#D1E0F8">@defining(utils.Formatter.convStrToStrDate(formKokyakuInfo("kokyakuUserPwdLastUpdated").value)){d => @d}</td>
+				<td bgcolor="#FFE3D6">@defining(utils.Formatter.convStrToStrDate(formKokyakuInfo("kokyakuUserPwdLastUpdated").value)){d => @d}</td>
+			</tr>
+			<tr>
+				<td bgcolor="#A3C2F1">契約者氏名</td>
+				<td bgcolor="#A3C2F1">
+					<p>@formKokyakuInfo("lastName").value @formKokyakuInfo("firstName").value</p>
+					<p class="mr10" style="float: right;">
+						<button class="editButton" style="width: 11em;">契約者情報変更</button>
+					</p>
+				</td>
+				<td bgcolor="#FFCCB2">@formKokyakuInfo("lastName").value @formKokyakuInfo("firstName").value</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D1E0F8">契約者郵便番号</td>
+				<td bgcolor="#D1E0F8">@formKokyakuInfo("zipNo").value
+					<p class="mr10" style="float: right;">
+						<button class="editButton" style="width: 11em;" onClick="doProcedure('@routes.Application.getKaikyokuCheckInfo()');">お引越しの手続き</button>
+					</p>
+				</td>
+				<td bgcolor="#FFE3D6">@(formWizardInputInfo("inputZipNo1").value)-@(formWizardInputInfo("inputZipNo2").value)</td>
+			</tr>
+			<tr>
+				<td bgcolor="#A3C2F1">契約者住所<br>(アパート/マンション以外)</td>
+				<td bgcolor="#A3C2F1">@(formKokyakuInfo("todouhuken").value)@(formKokyakuInfo("si_ku_gun").value)@(formKokyakuInfo("tyousonOaza").value)@(formKokyakuInfo("azaBanchiGou").value)</td>
+				<td bgcolor="#FFCCB2">
+					@(formWizardInputInfo("inputTodouhuken").value)@(formWizardInputInfo("inputSiKuGun").value)@(formWizardInputInfo("inputTyousonOaza").value)@(formWizardInputInfo("inputAzaBanchiGou").value)
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D1E0F8">契約者住所<br>アパート/マンション</td>
+				<td bgcolor="#D1E0F8">@(formKokyakuInfo("apartment").value)@(formKokyakuInfo("apartmentRoomNo").value)</td>
+				<td bgcolor="#FFE3D6">
+				@(formWizardInputInfo("inputApartment").value)
+				@(formWizardInputInfo("inputApartmentRoomNo").value)
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="2" bgcolor="#A3C2F1">連絡先電話番号</td>
+				<td bgcolor="#A3C2F1">@formKokyakuInfo("telNo1").value</td>
+				<td bgcolor="#FFCCB2">@formWizardInputInfo("inputTelNo").value</td>
+			</tr>
+			<tr>
+			    <td bgcolor="#D1E0F8">@formKokyakuInfo("telNo2").value</td>
+			    <td bgcolor="#FFE3D6">@formWizardInputInfo("inputTelNo").value</td>
+			</tr>
+			<tr>
+				<td bgcolor="#A3C2F1">支払方法</td>
+				<td id="shiharaiHouhou" bgcolor="#A3C2F1">@formKokyakuInfo.get().keiyakuInfo(0).shiharaiHouhou
+				<div style="float: right;width: 12em;">
+					<p class="mr10"><button class="editButton" style="width: 11em;">お支払方法変更</button>
+					<p class="mt5 mr10"><button class="editButton" style="width: 11em;">KDDI請求に変更</button></p>
+					<p class="mt5 mr10"><button class="editButton" style="width: 11em;">ご利用明細の確認</button></p>
+				</div>
+				</td>
+				<td bgcolor="#FFCCB2">@formKokyakuInfo.get().keiyakuInfo(0).shiharaiHouhou</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

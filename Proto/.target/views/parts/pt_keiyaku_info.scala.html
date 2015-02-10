@@ -1,0 +1,60 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo])
+
+@import helper._
+@import utils._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0001" class="box line">
+		<table class="stripeTbl" width="100%" border="0" cellspacing="2" cellpadding="3">
+			<tr>
+				<td width="30%" bgcolor="#72a3ea" class="white">@Messages.get("kokyakuUserId", "")</td>
+				<td width="70%" bgcolor="#72a3ea" class="white">@formKokyakuInfo("kokyakuUserId").value</td>
+			</tr>
+			<tr>
+				<td>ユーザパスワード最終更新日</td>
+				<td>@defining(utils.Formatter.convStrToStrDate(formKokyakuInfo("kokyakuUserPwdLastUpdated").value)){d => @d}</td>
+			</tr>
+			<tr>
+				<td>契約者氏名</td>
+				<td><p>@formKokyakuInfo("lastName").value @formKokyakuInfo("firstName").value</p>
+					<p class="mr10 float-right"><button class="editButton">契約者情報変更</button></p>
+				</td>
+			</tr>
+			<tr>
+				<td>契約者郵便番号</td>
+				<td>@formKokyakuInfo("zipNo").value
+					<p class="mr10 float-right"><button class="editButton" onClick="doProcedure('@routes.Application.getKaikyokuCheckInfo()');">お引越しの手続き</button></p>
+				</td>
+			</tr>
+			<tr>
+				<td>契約者住所<br>(アパート/マンション以外)</td>
+				<td>@(formKokyakuInfo("todouhuken").value)@(formKokyakuInfo("si_ku_gun").value)@(formKokyakuInfo("tyousonOaza").value)@(formKokyakuInfo("azaBanchiGou").value)</td>
+			</tr>
+			<tr>
+				<td>契約者住所<br>アパート/マンション</td>
+				<td>@(formKokyakuInfo("apartment").value)@(formKokyakuInfo("apartmentRoomNo").value)</td>
+			</tr>
+			<tr>
+				<td rowspan="2">連絡先電話番号</td>
+				<td>@formKokyakuInfo("telNo1").value</td>
+			</tr>
+			<tr>
+			    <td>@formKokyakuInfo("telNo2").value</td>
+		    </tr>
+			<tr>
+				<td>支払方法</td>
+				<td>@formKokyakuInfo.get().keiyakuInfo(0).shiharaiHouhou
+				<div class="float-right">
+					<p class="mr10"><button class="editButton">お支払方法変更</button>
+					<p class="mt5 mr10"><button class="editButton">KDDI請求に変更</button></p>
+					<p class="mt5 mr10"><button class="editButton">ご利用明細の確認</button></p>
+				</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

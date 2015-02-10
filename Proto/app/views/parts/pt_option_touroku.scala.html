@@ -1,0 +1,57 @@
+@(formServiceInputInfo: Form[models.input.ServiceInputInfo])
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0013" class="clear-float box3 mt20" style="height:60%;overflow:auto;">
+		<div class="clear-float mt20">
+			<p class="mt20">設置場所登録</p>
+			<table width="100%" border="0" cellspacing="2" cellpadding="3">
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">都道府県</td>
+					<td bgcolor="#FFE3D6">
+						<span class="left">
+							<input id="todouhuken" name="SSCR0004.serviceInputContents.inputTodouhuken" class="validate[required] bodyInfo" type="text" value="" size="50">
+						</span>
+						<p class="left ml10"><button class="active">郵便番号検索</button></p>
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">市区郡</td>
+					<td bgcolor="#FFE3D6">
+						<input id="siKuGun" name="SSCR0004.serviceInputContents.inputSiKuGun" class="validate[required] bodyInfo" type="text" value="" size="50">
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">町村/大字</td>
+					<td bgcolor="#FFE3D6">
+						<input id="tyousonOaza" name="SSCR0004.serviceInputContents.inputTyousonOaza" class="validate[required]  bodyInfo" type="text" value="" size="50">
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">字/番地/号</td>
+					<td bgcolor="#FFE3D6">
+						<input id="azaBanchiGou" name="SSCR0004.serviceInputContents.inputAzaBanchiGou" class="validate[required] bodyInfo" type="text" value="" size="50">
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">アパートマンション</td>
+					<td bgcolor="#FFE3D6">
+						<input id="apartment" class="bodyInfo" name="SSCR0004.serviceInputContents.inputApartment" type="text" value="" size="50">
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">部屋番号</td>
+					<td bgcolor="#FFE3D6">
+						<input id="apartmentRoomNo" name="SSCR0004.serviceInputContents.inputApartmentRoomNo" class="bodyInfo" type="text" value="" size="50">
+					</td>
+				</tr>
+				<input id="inputServiceCd" name="SSCR0004.serviceInputContents.inputServiceCd" type="hidden" value="0016">
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo],
+mapServiceInfo: Map[String,List[models.entities.NewServiceInfo]],
+formWizardInputInfo: Form[models.input.WizardInputInfo]
+)
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0009" class="box line">
+			<table width="100%" border="0" cellspacing="2" cellpadding="3">
+				<tr>
+					<td width="25%" bgcolor="#72a3ea" class="white">接続サービス</td>
+					<td width="40%" bgcolor="#72a3ea" class="white">移転前</td>
+					<td bgcolor="#E86F33" class="white">移転後</td>
+				</tr>
+				<tr>
+					<td bgcolor="#D1E0F8">ご利用プラン</td>
+					<td bgcolor="#D1E0F8">
+@if(formKokyakuInfo.get().keiyakuInfo.size() != 0){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen.size() != 0){
+			@for(ServLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen) {
+						<p>@(ServLst.riyouCourse)</p>
+						<p>@(ServLst.riyouPlan)</p>
+			}
+		}
+	}
+}
+						<p class="mr10" style="float: right;">
+							<button class="editButton" style="width: 11em;">コース変更</button>
+						</p>
+					</td>
+					<td bgcolor="#FFE3D6">@formWizardInputInfo("inputRiyouCourseName").value</td>
+				</tr>
+				<tr>
+					<td bgcolor="#A3C2F1">IPv6アダプタ</td>
+					<td bgcolor="#A3C2F1">
+@if(formKokyakuInfo.get().keiyakuInfo.size() != 0){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen.size() != 0){
+			@for(ServLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen) {
+						<p>@(ServLst.ipv6Adapter)</p>
+			}
+		}
+	}
+}
+						<p class="mr10" style="float: right;">
+							<button class="editButton" style="width: 11em;">ご解約</button>
+						</p>
+					</td>
+					<td bgcolor="#FFCCB2">
+@if(formKokyakuInfo.get().keiyakuInfo.size() != 0){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen.size() != 0){
+			@for(ServLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen) {
+						<p>@(ServLst.ipv6Adapter)</p>
+			}
+		}
+	}
+}</td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="2" cellpadding="3" class="mt20">
+				<tr>
+					<td width="25%" bgcolor="#72a3ea" class="white">メール情報</td>
+					<td width="40%" bgcolor="#72a3ea" class="white">移転前</td>
+					<td bgcolor="#E86F33" class="white">移転後</td>
+				</tr>
+@if(formKokyakuInfo.get().keiyakuInfo(0) != null){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcMail.size() != 0){
+			@for(servLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcMail) {
+				<tr>
+					<td bgcolor="#D1E0F8">@servLst.serviceMaster.serviceMeishou</td>
+					<td bgcolor="#D1E0F8">@servLst.mailaddress
+						<div style="float: right;width: 13em;">
+		@if(servLst.dependService1 != null){
+							<p class="mr10">
+								<button class="editButton" style="width: 12em;">@servLst.dependService1.serviceMeishou</button>
+							</p>
+		}
+		@if(servLst.dependService2 != null){
+							<p class="mr10">
+								<button class="editButton" style="width: 12em;">@servLst.dependService2.serviceMeishou</button>
+							</p>
+		}
+						</div>
+					</td>
+					<td bgcolor="#FFE3D6">@servLst.mailaddress</td>
+				</tr>
+			}
+		}
+	}
+}
+			</table>
+			
+			<ul class="tab mt20">
+				<li><button class="editButton">メールアドレス変更　＞</button></li>
+				<li><button class="editButton">メールアドレス追加　＞</button></li>
+				<li><button class="editButton">メールパスワード変更　＞</button></li>
+				<li><button class="editButton">メール転送設定　＞</button></li>
+			</ul>
+	</div>
+	<!-- これ以降は、STEP４で削除します。Wizardで反映させるための項目 -->
+	<input type="hidden" name="ttPhoneStatus" value="">
+	<input type="hidden" name="sokuwari15" value="">
+</body>
+</html>

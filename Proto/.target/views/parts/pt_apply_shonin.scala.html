@@ -1,0 +1,66 @@
+@(lstSearchResult: List[models.sqlrows.ApplyUketsukeInfo])
+
+<div id="searchResultShonin" style="text-align: center;margin-top: 50px;">
+	<p style="font-size:0.85em;text-align:left;margin-left: 5%;color:#444444;">対象件数@lstSearchResult.size()件</p>
+	<p class="align-right p5" style="width: 90%;">
+		<input type="radio" value="radiobutton" name="r1" checked>20　<input type="radio" value="radiobutton" name="r1">30　<input type="radio" value="radiobutton" name="r1">50
+	</p>
+	<div id="outGrid">
+		<div id="inGrid">
+		@helper.form(action = routes.ApplyManagement.shoninResult, 'id -> "formShoninApply"){
+			<table  id="searchResultTable">
+				@if(!lstSearchResult.isEmpty()){
+				<colgroup class="colNo"></colgroup>
+				<colgroup class="colKey"></colgroup>
+				<colgroup class="colKeiyakuId"></colgroup>
+				<colgroup class="colKokyakuId"></colgroup>
+				<colgroup class="colTelNo"></colgroup>
+				<colgroup class="colServiceId"></colgroup>
+				<colgroup class="colActivityId"></colgroup>
+				<colgroup class="colActivityName"></colgroup>
+				<thead>
+					<tr>
+						<th class="colNo">No.</th>
+						<th class="colKey">キーID</th>
+						<th class="colKeiyakuId">契約ID</th>
+						<th class="colKokyakuId">顧客名称</th>
+						<th class="colTelNo">電話番号</th>
+						<th class="colServiceId">サービスID</th>
+						<th class="colActivityId">アクティビティID</th>
+						<th class="colActivityName">アクティビティ</th>
+						<th class="searchResultQueueId"></th>
+						<th class="searchResultApplyId"></th>
+						<th class="searchResultKokyakuId"></th>
+				    	<th class="searchResultKeiyakuId"></th>
+				    	<th class="searchResultActivityId"></th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(lst <- lstSearchResult){
+					<tr>
+						<td class="dataNo"><a href="#">@lst.seq</a></td>
+						<td>@lst.queueId</td>
+						<td>@lst.keiyakuId</td>
+						<td>@lst.lastName @lst.firstName</td>
+						<td>@lst.telNo1</td>
+						<td>@lst.serviceId</td>
+						<td>@lst.activityId</td>
+						<td>@lst.activityName</td>
+						<td class="searchResultQueueId"><input type="hidden" name="queueId" value=@lst.queueId /></td>
+						<td class="searchResultApplyId"><input type="hidden" name="applyId" value=@lst.applyId /></td>
+						<td class="searchResultKokyakuId"><input type="hidden" name="kokyakuId" value=@lst.kokyakuId /></td>
+						<td class="searchResultKeiyakuId"><input type="hidden" name="keiyakuId" value=@lst.keiyakuId /></td>
+						<td class="searchResultActivityId"><input type="hidden" name="activityId" value=@lst.activityId /></td>
+					</tr>
+					}
+				</tbody>
+				}else{
+					<tr><td>表示するデータはありません。</td></tr>
+				}
+			</table>
+			}
+		</div>
+	</div>
+	<p style="font-size:0.85em;text-align:left;margin-left: 5%;color:#444444;">対象件数@lstSearchResult.size()件</p>
+       <div class="align-center pb10">＜前のページ　　<strong>1</strong>　　次のページ＞</div>
+</div>

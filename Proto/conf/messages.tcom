@@ -1,0 +1,26 @@
+# TCOM項目定義
+kokyakuUserId=ユーザID(TCOM)
+inputZipNo1=郵便番号１
+inputZipNo2=郵便番号２
+inputTodouhuken=都道府県
+inputSiKuGun=市区郡
+inputTyousonOaza=町村/大字
+inputAzaBanchiGou=字/番地/号
+inputApartment=アパートマンション
+inputApartmentRoomNo=部屋番号
+inputKidukeSama=着付/様方
+inputTelNo=電話番号
+inputKaitsuuKoujibi=フレッツひかり開通工事日
+inputKoujiYoteibi=工事予定日
+
+# エラーメッセージ
+error.required=必須入力です。（サーバ側チェック)
+error.maxLength=%d桁以下で入力してください。(サーバ側チェック）
+error.minLength=%d桁以上で入力してください。(サーバ側チェック）
+error.pattern=入力が不正です。(サーバ側チェック)
+
+#画像パス
+auひかりホームタイプ=images/auhikari.png
+service_cd.0001=images/auhikari.png
+service_cd.0002=images/fhikari.png
+tcom=images/tcom_logo.png

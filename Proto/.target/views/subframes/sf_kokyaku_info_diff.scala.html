@@ -1,0 +1,70 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo],
+formApplyInfo: Form[models.entities.ApplyInfo],
+formWizardInputInfo: Form[models.input.WizardInputInfo],
+mapServiceInfo: Map[String,List[models.entities.NewServiceInfo]],
+mapApplyServiceInfo: Map[String,List[models.entities.NewApplyServiceInfo]],
+lstServiceMaster: List[models.entities.NewServiceMaster]
+)
+
+@import helper._
+@import utils._
+
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/fn_winsize.js")" type="text/javascript"></script>
+</head>
+<body>
+	<div id="SSCR0003" class="jqDnR gse-subframe gse-id-0003">
+		<div class="jqHandle jqDrag"></div>
+		<h2 id="kokyakuShimei">顧客情報　@formKokyakuInfo("lastName").value @formKokyakuInfo("firstName").value　様</h2>
+		<p class="btn_close2">
+			<a href="#" onClick="w_sscr0003_close()"><img src="@routes.Assets.at("images/btn_close.gif")"></a>
+		</p>
+		<div class="cf subframeHeaderContentsChk">
+            <p class="imagesContents" style="float: left;">
+            	<img src="@routes.Assets.at(Messages.get("service_cd." + formWizardInputInfo("inputRiyouCourse").value))">
+            </p>
+            <p class="bestPlanContents">
+				<input type="button" class="clsBestPlan" name="bestPlan" value="最適商品検索" onclick="showSubFrame('searchBestPlan','bestPlanContents')">
+			</p>
+            <ul class="check_list cf mt20 ml10"></ul>
+        </div>
+		<button id="ITEM0013" class="kakutei" onClick="DoUpdate('updateApplyForm,updateTaiouRirekiForm','@routes.Application.tourokuApplyKokyakuInfo()');">確定</button>
+		<ul id="kokyakuTab" class="tab clear-float">
+			<li><button id="TabPSCR0008" class="tabButton">契約者情報</button></li>
+			<li><button id="TabPSCR0009" class="tabButton">サービス情報</button></li>
+			<li><button id="TabPSCR0010" class="tabButton">料金情報</button></li>
+			<li><button id="TabPSCR0011" class="tabButton">オプション情報</button></li>
+			<li><button id="TabPSCR0012" class="tabButton">設置場所</button></li>
+			<li><button>支払情報</button></li>
+		</ul>
+		<!-- 顧客情報画面部品 START-->
+		@parts.pt_keiyaku_info_diff(formKokyakuInfo,formApplyInfo,formWizardInputInfo)
+		<!-- 顧客情報画面部品 END-->
+		
+		<!-- サービス情報画面部品 START-->
+		@parts.pt_service_info_diff(formKokyakuInfo, mapServiceInfo, formWizardInputInfo)
+		<!-- サービス情報画面部品 END-->
+		
+		<!-- 料金情報画面部品 START-->
+		@parts.pt_ryoukin_info_diff(formKokyakuInfo)
+		<!-- 料金情報画面部品 END-->
+		
+		<!-- オプション情報画面部品 START-->
+		@parts.pt_option_info_diff(lstServiceMaster, formKokyakuInfo, mapApplyServiceInfo, formApplyInfo)
+		<!-- オプション情報画面部品 END-->
+		
+		<!-- 設置場所画面部品 START-->
+		@parts.pt_setting_option_info_diff(lstServiceMaster, formKokyakuInfo, formApplyInfo)
+		<!-- 設置場所画面部品 END-->
+		<div class="jqHandle jqResize"></div>
+		<div id="tabCntl"></div>
+		<div>
+			<form id="updateApplyForm" method="post">
+				<input type="hidden" name="kokyakuId" value="@(formKokyakuInfo("kokyakuId").value)" />
+				<input type="hidden" name="keiyakuId" value="@(formKokyakuInfo.get().keiyakuInfo(0).keiyakuId)" />
+			</form>
+		</div>
+	</div>
+</body>
+</html>

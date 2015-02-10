@@ -1,0 +1,33 @@
+
+@charset "utf-8";
+.jqHandle {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.jqDrag {
+    cursor: move;
+    height: 15px;
+    position: absolute;
+    width: 100%;
+}
+.jqResize {
+    background: none repeat scroll 0 0 #72A3EA;
+    bottom: 0;
+    cursor: se-resize;
+    height: 15px;
+    position: absolute;
+    right: 0;
+    width: 15px;
+}
+.jqDnR {
+    background-color: #FFFFFF;
+    border: 1px solid #999999;
+    box-shadow: 2px 2px 2px 0 #B3B3B3;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+    width: 180px;
+    z-index: 13;
+}

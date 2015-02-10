@@ -1,0 +1,77 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo],
+mapServiceInfo: Map[String,List[models.entities.NewServiceInfo]]
+)
+
+@import helper._
+@import java.util._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0002" class="box line">
+		<table class="stripeTbl" width="100%" border="0" cellspacing="2" cellpadding="3">
+			<tr>
+				<td width="25%" bgcolor="#72a3ea" class="white">接続サービス</td>
+				<td width="40%" bgcolor="#72a3ea" class="white">移転前</td>
+			</tr>
+			<tr>
+				<td>ご利用プラン</td>
+				<td id="riyouPlan">
+@if(formKokyakuInfo.get().keiyakuInfo.size() != 0){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen.size() != 0){
+			@for(ServLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen) {
+				<p>@(ServLst.riyouCourse)</p>
+				<p>@(ServLst.riyouPlan)</p>
+			}
+		}
+	}
+}
+			    <p class="mr10" style="float: right;"><button class="editButton">コース変更</button></p></td>
+			</tr>
+			<tr>
+				<td>IPv6アダプタ</td>
+				<td id="ipv6Adapter">
+@if(formKokyakuInfo.get().keiyakuInfo(0) != null){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen.size() != 0){
+			@for(ServLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen) {
+				<p>@(ServLst.ipv6Adapter)</p>
+			}
+		}
+	}
+}
+			    <p class="mr10" style="float: right;"><button class="editButton">ご解約</button></p></td>
+			</tr>
+		</table>
+		<table class="stripeTbl" width="100%" border="0" cellspacing="2" cellpadding="3" class="mt20">
+			<tr>
+				<td width="25%" bgcolor="#72a3ea" class="white">メール情報</td>
+				<td width="40%" bgcolor="#72a3ea" class="white">移転前</td>
+			</tr>
+@if(formKokyakuInfo.get().keiyakuInfo(0) != null){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcMail.size() != 0){
+			@for(servLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcMail) {
+			<tr>
+				<td>@servLst.serviceMaster.serviceMeishou</td>
+				<td>@servLst.mailaddress
+			    <div style="float: right;width: 13em;">
+		@if(servLst.dependService1 != null){
+			<p class="mr10"><button class="editButton">@servLst.dependService1.serviceMeishou</button>
+		}
+		@if(servLst.dependService2 != null){
+			<p class="mr10"><button class="editButton">@servLst.dependService2.serviceMeishou</button>
+		}
+				</div></td>
+			</tr>
+			}
+		}
+	}
+}
+		</table>
+	</div>
+</body>
+</html>
+

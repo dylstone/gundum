@@ -1,0 +1,57 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo],
+mapServiceInfo: Map[String,List[models.entities.NewServiceInfo]],
+lstServiceMaster: List[models.entities.NewServiceMaster]
+)
+@import helper._
+@import utils._
+
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/sf_kokyaku_info.js")" type="text/javascript"></script>
+</head>
+<body>
+	<div id="SSCR0001" class="jqDnR gse-subframe gse-id-0001">
+		<div class="jqHandle jqDrag"></div>
+		<h2 id="kokyakuShimei">顧客情報　@formKokyakuInfo("lastName").value @formKokyakuInfo("firstName").value　様</h2>
+		<p class="btn_close2">
+			<a href="#" onClick="w_sscr0001_close()"><img src="@routes.Assets.at("images/btn_close.gif")"></a>
+		</p>
+		<div class="subframeHeaderContents">
+			<p class="imagesContents">
+@if(formKokyakuInfo.get().keiyakuInfo(0) != null){
+	@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo.size() != 0){
+		@if(formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen.size() != 0){
+			@for(ServLst <- formKokyakuInfo.get().keiyakuInfo(0).serviceInfo(0).svcKaisen) {
+				<img src="@routes.Assets.at(Messages.get(ServLst.riyouCourse, ""))">
+			}
+		}
+	}
+}		
+			</p>
+			<p class="bestPlanContents">
+				<input type="button" class="clsBestPlan" name="bestPlan" value="最適商品検索" onclick="showSubFrame('searchBestPlan','bestPlanContents')">
+			</p>
+		</div>
+		<div class="tabContents">
+			<ul id="kokyakuTab" class="tab">
+				<li><button id="TabPSCR0001" class="tabButton">契約者情報</button></li>
+				<li><button id="TabPSCR0002" class="tabButton">サービス情報</button></li>
+				<li><button id="TabPSCR0003" class="tabButton">料金情報</button></li>
+			</ul>
+		</div>
+		<!-- 顧客情報画面部品 START-->
+		@parts.pt_keiyaku_info(formKokyakuInfo)
+		<!-- 顧客情報画面部品 END-->
+		
+		<!-- サービス情報画面部品 START-->
+		@parts.pt_service_info(formKokyakuInfo, mapServiceInfo)
+		<!-- サービス情報画面部品 END-->
+		
+		<!-- 料金情報画面部品 START-->
+		@parts.pt_ryoukin_info(formKokyakuInfo)
+		<!-- 料金情報画面部品 END-->
+		
+		<div class="jqHandle jqResize"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+/**
+ * businessパッケージ
+ */
+package models.input;

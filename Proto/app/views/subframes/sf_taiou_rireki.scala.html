@@ -1,0 +1,44 @@
+@(lstTaiouRireki: List[models.sqlrows.KokyakuTaiouRirekiInfo],
+lstGamenItemControlInfo: List[models.entities.GamenItemControlInfo]
+)
+@import helper._
+
+<html>
+<head>
+	<script src="@routes.Assets.at("javascripts/sf_taiou_rireki.js")" type="text/javascript"></script>
+</head>
+<body>
+	<div id="SSCR0002" class="jqDnR gse-subframe gse-id-0002">
+		<!-- 対応履歴画面部品 -->
+		<div class="jqHandle jqDrag"></div>
+		<h2>対応履歴情報</h2>
+		<p class="btn_close2">
+			<a href="#" onClick="w_sscr0002_close()"><img src="@routes.Assets.at("images/btn_close.gif")"></a>
+		</p>
+		@parts.pt_taiou_rireki()
+		<button id="ITEM0014" class="kakutei" onClick="DoUpdateTaiouRireki('updateTaiouRirekiForm','@routes.Application.tourokuTaiouRirekiInfo()');">確定</button>
+		<div class="jqHandle jqResize"></div>
+	</div>
+	<div id = "TaiouRireki">
+	<table>
+ @for(lstTaiou <-lstTaiouRireki){
+	 	<tr>
+	 		<td class="taiouId">@lstTaiou.taiouId</td>
+	 		<td class="kokyakuId">@lstTaiou.kokyakuId</td>
+	 		<td class="renrakushaName">@lstTaiou.renrakushaName</td>
+	 		<td class="telNo">@lstTaiou.telNo</td>
+	 		<td class="taiouNichiji">@defining(utils.Formatter.convDateFormat(lstTaiou.taiouNichiji,"yyyy/MM/dd HH:mm:ss")){d => @d}</td>
+	 		<td class="taiouOperatorId">@lstTaiou.taiouOperatorId</td>
+	 		<td class="operatorName">@lstTaiou.operatorName</td>
+	 		<td class="operatorDepartment">@lstTaiou.operatorDepartment</td>
+	 		<td class="kanrenClientTaioId">@lstTaiou.kanrenClientTaioId</td>
+	 		<td class="toiawaseNaiyou">@lstTaiou.toiawaseNaiyou</td>
+	 		<td class="toiawaseSyubetsu">@lstTaiou.toiawaseSyubetsu</td>
+	 		<td class="taiouNaiyou">@lstTaiou.taiouNaiyou</td>
+	 		<td class="taiouKekka">@lstTaiou.taiouKekka</td>
+	 	</tr>
+ }
+ 	</table>
+ </div>
+</body>
+</html>

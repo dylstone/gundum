@@ -1,0 +1,122 @@
+@(
+	lstServiceMaster: List[models.entities.NewServiceMaster], 
+	formKokaykuInfo: Form[models.entities.KokyakuInfo],
+	mapApplyServiceInfo: Map[String,List[models.entities.NewApplyServiceInfo]],
+	formApplyInfo: Form[models.entities.ApplyInfo]
+)
+
+@import helper._
+@import java.util._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0011" class="box line">
+@helper.form(action = routes.Application.tourokuApplyKokyakuInfo, 'id -> "updateApplyForm"){
+		<div class="p10">
+		<table id="security" width="100%" border="0" cellspacing="2" cellpadding="3">
+			<thead>
+				<tr>
+					<td width="30%" bgcolor="#72a3ea" class="white">セキュリティ関連サービス</td>
+					<td width="45%" bgcolor="#72a3ea" class="white">移転前</td>
+					<td width="25%" bgcolor="#E86F33" class="white">移転後</td>
+				</tr>
+			</thead>
+			<tbody>
+@for(servLst <- lstServiceMaster){
+	@if(servLst.serviceBunrui != null){
+		@if(servLst.serviceBunrui.serviceBunruiCd == "0006"){
+				<tr>
+					<td bgcolor="#D1E0F8">@servLst.serviceMeishou</td>
+					<td bgcolor="#D1E0F8">
+						<p class="permInfoCell">なし</p>
+					</td>
+					<td bgcolor="#FFE3D6">
+						<p class="applyInfoCell" style="float: left;">なし</p><p class="mr10" style="float: right;"><input type="button" class="red securityStatus" value="申込" style="width: 5em;"></p>
+					</td>
+					<td><input type="hidden" name="securityServiceCd" value="@servLst.serviceCd"></td>
+					<td><input type="hidden" name="securityUpdFlg" value=""></td>
+				</tr>
+			
+		}
+	}
+}
+			</tbody>
+		</table>
+		<table id="option" width="100%" border="0" cellspacing="2" cellpadding="3" class="mt20">
+			<thead>
+				<tr>
+					<td width="30%" bgcolor="#72a3ea" class="white">オプションサービス</td>
+					<td width="45%" bgcolor="#72a3ea" class="white">契約状況</td>
+					<td width="25%" bgcolor="#E86F33" class="white">移転後</td>
+				</tr>
+			</thead>
+			<tbody>
+@for(servLst <- lstServiceMaster){
+	@if(servLst.serviceBunrui != null){
+		@if(servLst.serviceBunrui.serviceBunruiCd == "0002"){
+				<tr>
+					<td bgcolor="#D1E0F8">@servLst.serviceMeishou</td>
+					<td bgcolor="#D1E0F8">
+						<p class="permInfoCell">なし</p>
+					</td>
+					<td bgcolor="#FFE3D6" ><p class="applyInfoCell" style="float: left;">なし</p>
+					<p class="mr10" style="float: right;"><input type="button" class="red optionStatus" value="申込" style="width: 5em;"></p>
+					</td>
+					<td><input type="hidden" name="optionServiceCd" value="@servLst.serviceCd"></td>
+					<td><input type="hidden" name="optionUpdFlg" value=""></td>
+				</tr>
+		}
+	}
+}
+			</tbody>
+		</table>
+		</div>
+}
+	</div>
+	<div id="serviceInfo">
+		<div id="perm_security">
+			<table>
+	@for(lstSecurity <- formKokaykuInfo.get().keiyakuInfo(0).serviceInfo(0).svcSecurity){
+				<tr>
+					<td><input type="hidden" name="masterServiceCd" value="@lstSecurity.serviceMaster.serviceCd"></td>
+				</tr>
+	}
+			</table>
+		</div>
+		<div id="perm_option">
+			<table>
+	@for(lstOption <- formKokaykuInfo.get().keiyakuInfo(0).serviceInfo(0).svcOption){
+				<tr>
+					<td><input type="hidden" name="masterServiceCd" value="@lstOption.serviceMaster.serviceCd"></td>
+				</tr>
+	}
+			</table>
+		</div>
+		<div id="apply_security">
+			<table>
+	@if(formApplyInfo != null){
+		@for(lstApplySecurity <- formApplyInfo.get().newApplyServiceInfo(0).applySvcSecurity){
+					<tr>
+						<td><input type="hidden" name="masterServiceCd" value="@lstApplySecurity.serviceMaster.serviceCd"></td>
+					</tr>
+		}
+	}
+			</table>
+		</div>
+		<div id="apply_option">
+			<table>
+	@if(formApplyInfo != null){
+		@for(lstApplyOption <- formApplyInfo.get().newApplyServiceInfo(0).applySvcOption){
+					<tr>
+						<td><input type="hidden" name="masterServiceCd" value="@lstApplyOption.serviceMaster.serviceCd"></td>
+					</tr>
+		}
+	}
+			</table>
+		</div>
+	</div>
+</body>
+</html>
+

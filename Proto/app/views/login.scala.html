@@ -1,0 +1,66 @@
+@(message: String, operatorMaster: Form[models.entities.OperatorMaster])
+@import play.i18n.Messages
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>ログイン</title>
+		<style type="text/css">
+			body{
+			font-family: "ＭＳ Ｐゴシック","ＭＳ ゴシック",sans-serif;
+			}
+			
+			#ptMessage {
+			height: 10px;
+			margin: 50px auto;
+			text-align: center;
+			
+			}
+			
+			#ptMessage p font{
+				font-size: 14px;
+				color: #ff0000;
+				font-weight: bold;
+				font-family: "ＭＳ Ｐゴシック","ＭＳ ゴシック",sans-serif;
+			}
+			
+			#ptLogin table {
+			height: 150px;
+			margin: 50px auto;
+			text-align: center;
+			}
+			
+			h1 {
+			margin: 10px 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>ログイン画面</h1>
+		<hr>
+		@helper.form(action = routes.KokyakuInfoManagement.showBaseFrame){
+			<div id = "ptMessage" >
+				<p><font>@Messages.get(message)</font></p>
+			</div>
+			<div id = "ptLogin" >
+				<table>
+					<tr>
+						<th>ログインID</th>
+						<td><input id = "operatorId" type="text" name="operatorId" value="" size="32"></td>
+					</tr>
+					<tr>
+						<th>パスワード</th>
+						<td><input id = "operatorPwd" type="password" name="operatorPwd" value="" size="24"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" value="ログイン">
+						</td>
+					</tr>
+				</table>
+			</div>
+		}
+	</body>
+</html>

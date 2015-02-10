@@ -1,0 +1,131 @@
+@(formKokyakuInfo: Form[models.entities.KokyakuInfo],
+formApplyInfo: Form[models.entities.ApplyInfo],
+formWizardInputInfo: Form[models.input.WizardInputInfo]
+)
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0020" class="box line">
+		<table width="100%" border="0" cellspacing="2" cellpadding="3">
+			<tr>
+				<td width="25%" bgcolor="#898989" class="white"></td>
+				<td width="20%" bgcolor="#898989" class="white">変更前</td>
+				<td width="20%" bgcolor="#73A3EB" class="white">変更後</td>
+				<td bgcolor="#73A3EB" class="white"></td>
+			</tr>
+			<tr>
+				<td bgcolor="#D6D6D6">ユーザパスワード最終更新日</td>
+				<td bgcolor="#D6D6D6">@defining(utils.Formatter.convStrToStrDate(formKokyakuInfo("kokyakuUserPwdLastUpdated").value)){d => @d}</td>
+				<td bgcolor="#D1E0F8">@defining(utils.Formatter.convStrToStrDate(formKokyakuInfo("kokyakuUserPwdLastUpdated").value)){d => @d}</td>
+				<td bgcolor="#D1E0F8">
+					<input id="kokyakuUserPwdLastUpdatedNoSelect" class="clsKokyakuUserPwdLastUpdated" name="kokyakuUserPwdLastUpdated" type="radio" value="1" checked="checked">
+						<label for="kokyakuUserPwdLastUpdatedNoSelect">未選択</label>
+					<input id="kokyakuUserPwdLastUpdatedOK" class="clsKokyakuUserPwdLastUpdated" name="kokyakuUserPwdLastUpdated" type="radio" value="2">
+						<label for="kokyakuUserPwdLastUpdatedOK">OK</label>
+					<input id="kokyakuUserPwdLastUpdatedNG" class="clsKokyakuUserPwdLastUpdated" name="kokyakuUserPwdLastUpdated" type="radio" value="3">
+						<label for="kokyakuUserPwdLastUpdatedNG">NG不備</label>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D6D6D6">契約者氏名</td>
+				<td bgcolor="#D6D6D6">@formKokyakuInfo("lastName").value @formKokyakuInfo("firstName").value</td>
+				<td bgcolor="#A3C2F1">@formKokyakuInfo("lastName").value @formKokyakuInfo("firstName").value</td>
+				<td bgcolor="#A3C2F1">
+					<input id="keiyakushaNameNoSelect" class="clsKeiyakushaName" name="keiyakushaName" type="radio" value="1" checked="checked">
+						<label for="keiyakushaNameNoSelect">未選択</label>
+					<input id="keiyakushaNameOK" class="clsKeiyakushaName" name="keiyakushaName" type="radio" value="2">
+						<label for="keiyakushaNameOK">OK</label>
+					<input id="keiyakushaNameNG" class="clsKeiyakushaName" name="keiyakushaName" type="radio" value="3">
+						<label for="keiyakushaNameNG">NG不備</label>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D6D6D6">契約者郵便番号</td>
+				<td bgcolor="#D6D6D6">@formKokyakuInfo("zipNo").value</td>
+				<td bgcolor="#D1E0F8">@(formWizardInputInfo("inputZipNo1").value)-@(formWizardInputInfo("inputZipNo2").value)</td>
+				<td bgcolor="#D1E0F8">
+					<input id="inputZipNoSelect" class="clsInputZip" name="inputZip" type="radio" value="1" checked="checked">
+						<label for="inputZipNoSelect">未選択</label>
+					<input id="inputZipOK" class="clsInputZip" name="inputZip" type="radio" value="2">
+						<label for="inputZipOK">OK</label>
+					<input id="inputZipNG" class="clsInputZip" name="inputZip" type="radio" value="3">
+						<label for="inputZipNG">NG不備</label>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D6D6D6">契約者住所<br>(アパート/マンション以外)</td>
+				<td bgcolor="#D6D6D6">@(formKokyakuInfo("todouhuken").value)@(formKokyakuInfo("si_ku_gun").value)@(formKokyakuInfo("tyousonOaza").value)@(formKokyakuInfo("azaBanchiGou").value)</td>
+				<td bgcolor="#A3C2F1">
+					@(formWizardInputInfo("inputTodouhuken").value)@(formWizardInputInfo("inputSiKuGun").value)@(formWizardInputInfo("inputTyousonOaza").value)@(formWizardInputInfo("inputAzaBanchiGou").value)
+				</td>
+				<td bgcolor="#A3C2F1">
+					<input id="addressNoSelect" class="clsAddress" name="address" type="radio" value="1" checked="checked">
+						<label for="addressNoSelect">未選択</label>
+					<input id="addressOK" class="clsAddress" name="address" type="radio" value="2">
+						<label for="addressOK">OK</label>
+					<input id="addressNG" class="clsAddress" name="address" type="radio" value="3">
+						<label for="addressNG">NG不備</label>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D6D6D6">契約者住所<br>アパート/マンション</td>
+				<td bgcolor="#D6D6D6">@(formKokyakuInfo("apartment").value)@(formKokyakuInfo("apartmentRoomNo").value)</td>
+				<td bgcolor="#D1E0F8">
+				@(formWizardInputInfo("inputApartment").value)
+				@(formWizardInputInfo("inputApartmentRoomNo").value)
+				</td>
+				<td bgcolor="#D1E0F8">
+					<input id="apartmentNoSelect" class="clsApartment" name="apartment" type="radio" value="1" checked="checked">
+						<label for="apartmentNoSelect">未選択</label>
+					<input id="apartmentOK" class="clsApartment" name="apartment" type="radio" value="2">
+						<label for="apartmentOK">OK</label>
+					<input id="apartmentNG" class="clsApartment" name="apartment" type="radio" value="3">
+						<label for="apartmentNG">NG不備</label>
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="2" bgcolor="#D6D6D6">連絡先電話番号</td>
+				<td bgcolor="#D6D6D6">@formKokyakuInfo("telNo1").value</td>
+				<td bgcolor="#A3C2F1">@formWizardInputInfo("inputTelNo").value</td>
+				<td bgcolor="#A3C2F1">
+					<input id="telNo1NoSelect" class="clsTelNo1" name="telNo1" type="radio" value="1" checked="checked">
+						<label for="telNo1NoSelect">未選択</label>
+					<input id="telNo1OK" class="clsTelNo1" name="telNo1" type="radio" value="2">
+						<label for="telNo1OK">OK</label>
+					<input id="telNo1NG" class="clsTelNo1" name="telNo1" type="radio" value="3">
+						<label for="telNo1NG">NG不備</label>
+				</td>
+			</tr>
+			<tr>
+			    <td bgcolor="#D6D6D6">@formKokyakuInfo("telNo2").value</td>
+			    <td bgcolor="#D1E0F8">@formWizardInputInfo("inputTelNo").value</td>
+			    <td bgcolor="#D1E0F8">
+					<input id="telNo2NoSelect" class="clsTelNo2" name="telNo2" type="radio" value="1" checked="checked">
+						<label for="telNo2NoSelect">未選択</label>
+					<input id="telNo2OK" class="clsTelNo2" name="telNo2" type="radio" value="2">
+						<label for="telNo2OK">OK</label>
+					<input id="telNo2NG" class="clsTelNo2" name="telNo2" type="radio" value="3">
+						<label for="telNo2NG">NG不備</label>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#D6D6D6">支払方法</td>
+				<td id="shiharaiHouhou" bgcolor="#D6D6D6">@formKokyakuInfo.get().keiyakuInfo(0).shiharaiHouhou</td>
+				<td bgcolor="#A3C2F1">@formKokyakuInfo.get().keiyakuInfo(0).shiharaiHouhou</td>
+				<td bgcolor="#A3C2F1">
+					<input id="shiharaiHouhouNoSelect" class="clsShiharaiHouhou" name="shiharaiHouhou" type="radio" value="1" checked="checked">
+						<label for="shiharaiHouhouNoSelect">未選択</label>
+					<input id="shiharaiHouhouOK" class="clsShiharaiHouhou" name="shiharaiHouhou" type="radio" value="2">
+						<label for="shiharaiHouhouOK">OK</label>
+					<input id="shiharaiHouhouNG" class="clsShiharaiHouhou" name="shiharaiHouhou" type="radio" value="3">
+						<label for="shiharaiHouhouNG">NG不備</label>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

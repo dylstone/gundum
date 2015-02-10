@@ -1,0 +1,55 @@
+@(formServiceInputInfo: Form[models.input.ServiceInputInfo])
+
+@import helper._
+
+<html>
+<head>
+</head>
+<body>
+	<div id="PSCR0014" class="clear-float box3 mt20" style="height:60%;overflow:auto;">
+		<div class="clear-float mt20">
+			<p class="mt20">設置場所確認</p>
+			<table width="100%" border="0" cellspacing="2" cellpadding="3">
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">都道府県</td>
+					<td bgcolor="#FFE3D6">
+						<span class="left">
+							@(formServiceInputInfo("inputTodouhuken").value)
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">市区郡</td>
+					<td bgcolor="#FFE3D6">
+						@(formServiceInputInfo("inputSiKuGun").value)
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">町村/大字</td>
+					<td bgcolor="#FFE3D6">
+						@(formServiceInputInfo("inputTyousonOaza").value)
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">字/番地/号</td>
+					<td bgcolor="#FFE3D6">
+						@(formServiceInputInfo("inputAzaBanchiGou").value)
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">アパートマンション</td>
+					<td bgcolor="#FFE3D6">
+						@(formServiceInputInfo("inputApartment").value)
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#E86F33" class="white" class="headerInfo">部屋番号</td>
+					<td bgcolor="#FFE3D6">
+						@(formServiceInputInfo("inputApartmentRoomNo").value)
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
